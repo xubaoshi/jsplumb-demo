@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>jsplumb</title>
+    <style>
+      .box {
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="./index.js"></script>
+    <script type="jtk" id="tmplNode">
+      <div style="width:${w}px;height:${h}px;">
+          <div class="name">
+              <div class="delete" title="Click to delete">
+                  <i class="fa fa-times"/>
+              </div>
+              <span>${name}</span>
+              <div class="add" title="Add child node">
+                  <i class="fa fa-plus"/>
+              </div>
+          </div>
+      </div>
+    </script>
+  </body>
+</html>
