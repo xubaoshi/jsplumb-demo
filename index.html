@@ -28,5 +28,20 @@
           </div>
       </div>
     </script>
+    <script type="jtk" id="tmplNode1">
+      <div>
+        <div class="left">
+          <img style="width:40px;height:40px;" src="${picUrl}"/>
+          <div class="node-name">${name}</div>
+        </div>
+        <r-if test="tips">
+          <ul class="right">
+            <r-each in="tips">
+              <li>${$data}</li>
+            </r-each>
+          </ul>
+        </r-if>
+      </div>
+    </script>
   </body>
 </html>

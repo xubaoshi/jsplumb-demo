@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './src/index.vue'
+import App from './src/demo.vue'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'

@@ -1,11 +1,18 @@
 <template>
   <!-- <div id="points" class="panel-body points demo flow_chart"></div> -->
-  <div class="jtk-demo-main" id="jtk-demo-layouts">
+  <div
+    class="jtk-demo-main"
+    id="jtk-demo-layouts"
+  >
     <div class="jtk-demo-canvas canvas-wide jtk-surface">
       <div class="controls">
         <!-- <i class="el-icon-s-home selected-mode" mode="pan" title="Pan Mode"></i> -->
         <!-- <i class="el-icon-s-home" mode="select" title="Select Mode"></i> -->
-        <i class="el-icon-s-home" reset="" title="Zoom To Fit"></i>
+        <i
+          class="el-icon-s-home"
+          reset=""
+          title="Zoom To Fit"
+        ></i>
         <!-- <i class="fa fa-undo" undo="" title="Undo last action"></i> -->
         <!-- <i class="fa fa-repeat" redo="" title="Redo last action"></i> -->
       </div>
@@ -24,69 +31,32 @@ import './syntax-highlighter.js'
 // require('./style/demo.css')
 // require('./style/jsplumb.css')
 require('./style/tookit.default.css')
-require('./style/jsplumbtoolkit-demo.css')
+require('./style/jsplumbtoolkit-index.css')
 export default Vue.extend({
-  data() {
+  data () {
     return {
-      // bundler: 'Parcel'
-      data: {
-        point: [
-          {
-            _id: '58c21d713819d56d68763918',
-            name: 'MoeLove',
-            status: '0'
-          },
-          {
-            _id: '58c21d803819d56d68763919',
-            name: 'Moe',
-            status: '1'
-          },
-          {
-            _id: '58c21da83819d56d6876391a',
-            name: 'Love',
-            status: '0'
-          },
-          {
-            _id: '58c63ecf3819d5a22f2c7f24',
-            name: 'TaoBeier',
-            status: '1'
-          }
-        ],
-        location: [
-          ['Moe', 4, 14],
-          ['Love', 4, 24],
-          ['TaoBeier', 4, 34],
-          ['TaoBeier', 20, 24],
-          ['MoeLove', 4, 4]
-        ],
-        line: [
-          ['58c21d713819d56d68763918', '58c21d803819d56d68763919'],
-          ['58c21d803819d56d68763919', '58c21da83819d56d6876391a'],
-          ['58c21d803819d56d68763919', '58c63ecf3819d5a22f2c7f24'],
-          ['58c21da83819d56d6876391a', '58c63ecf3819d5a22f2c7f24']
-        ]
-      }
+
     }
   },
-  mounted() {
+  mounted () {
     this.tookitRun()
   },
   methods: {
-    tookitRun() {
-      jsPlumbToolkit.ready(function() {
+    tookitRun () {
+      jsPlumbToolkit.ready(function () {
         var toolkit = (window.toolkit = jsPlumbToolkit.newInstance({
-          beforeStartDetach: function() {
+          beforeStartDetach: function () {
             return false
           }
         }))
 
         var controls = document.querySelector('.controls')
 
-        jsPlumb.on(controls, 'tap', '[undo]', function() {
+        jsPlumb.on(controls, 'tap', '[undo]', function () {
           undoredo.undo()
         })
 
-        jsPlumb.on(controls, 'tap', '[redo]', function() {
+        jsPlumb.on(controls, 'tap', '[redo]', function () {
           undoredo.redo()
         })
 
@@ -121,12 +91,13 @@ export default Vue.extend({
         // ,
         // layoutSelector = document.querySelector('#layout')
 
-        var randomHierarchy = function() {
-          return jsPlumbToolkitDemoSupport.randomHierarchy(3)
+        var randomHierarchy = function () {
+          return jsPlumbToolkitDemoSupport.randomHierarchy(1)
         }
 
         // make a random hierarchy and store how many nodes there are; we will use this when we add new nodes.
         var hierarchy = randomHierarchy()
+        console.log(hierarchy)
         var renderer = (window.renderer = toolkit
           .load({ type: 'json', data: hierarchy })
           .render({
@@ -141,10 +112,10 @@ export default Vue.extend({
             },
             lassoFilter: '.controls, .controls *, .miniview, .miniview *',
             events: {
-              canvasClick: function(e) {
+              canvasClick: function (e) {
                 toolkit.clearSelection()
               },
-              modeChanged: function(mode) {
+              modeChanged: function (mode) {
                 jsPlumb.removeClass(
                   jsPlumb.getSelector('[mode]'),
                   'selected-mode'
@@ -167,7 +138,7 @@ export default Vue.extend({
 
         var undoredo = (window.undoredo = new jsPlumbToolkitUndoRedo({
           surface: renderer,
-          onChange: function(undo, undoSize, redoSize) {
+          onChange: function (undo, undoSize, redoSize) {
             controls.setAttribute('can-undo', undoSize > 0)
             controls.setAttribute('can-redo', redoSize > 0)
           },
@@ -179,10 +150,10 @@ export default Vue.extend({
         // remove buttons. This callback finds the related Node and
         // then tells the toolkit to delete it.
         //
-        jsPlumb.on(canvasElement, 'tap', '.delete', function(e) {
+        jsPlumb.on(canvasElement, 'tap', '.delete', function (e) {
           var info = toolkit.getObjectInfo(this)
           var selection = toolkit.selectDescendants(info.obj, true)
-          undoredo.transaction(function() {
+          undoredo.transaction(function () {
             toolkit.remove(selection)
           })
         })
@@ -192,14 +163,14 @@ export default Vue.extend({
         // add buttons. This callback adds an edge from the given node
         // to a newly created node, and then the layout is refreshed.
         //
-        jsPlumb.on(canvasElement, 'tap', '.add', function(e) {
+        jsPlumb.on(canvasElement, 'tap', '.add', function (e) {
           // this helper method can retrieve the associated
           // toolkit information from any DOM element.
           var info = toolkit.getObjectInfo(this)
           // get a random node.
           var n = jsPlumbToolkitDemoSupport.randomNode()
 
-          undoredo.transaction(function() {
+          undoredo.transaction(function () {
             // add the node to the toolkit
             var newNode = toolkit.addNode(n)
             // and add an edge for it from the current node.
@@ -208,12 +179,12 @@ export default Vue.extend({
         })
 
         // pan mode/select mode
-        jsPlumb.on(mainElement, 'tap', '[mode]', function() {
+        jsPlumb.on(mainElement, 'tap', '[mode]', function () {
           renderer.setMode(this.getAttribute('mode'))
         })
 
         // on home button tap, zoom content to fit.
-        jsPlumb.on(mainElement, 'tap', '[reset]', function() {
+        jsPlumb.on(mainElement, 'tap', '[reset]', function () {
           toolkit.clearSelection()
           renderer.zoomToFit()
         })
@@ -365,7 +336,7 @@ export default Vue.extend({
         jsPlumb.on(
           document.querySelector('#btnRegenerate'),
           'click',
-          function() {
+          function () {
             toolkit.clear()
             toolkit.load({
               data: randomHierarchy()
@@ -373,7 +344,7 @@ export default Vue.extend({
           }
         )
 
-        jsPlumb.on(document.querySelector('#btnRelayout'), 'click', function() {
+        jsPlumb.on(document.querySelector('#btnRelayout'), 'click', function () {
           renderer.relayout()
         })
       })
