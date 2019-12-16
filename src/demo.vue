@@ -1,20 +1,16 @@
 <template>
-  <!-- <div id="points" class="panel-body points demo flow_chart"></div> -->
   <div
     class="jtk-demo-main"
     id="jtk-demo-layouts"
   >
     <div class="jtk-demo-canvas canvas-wide jtk-surface">
       <div class="controls">
-        <!-- <i class="el-icon-s-home selected-mode" mode="pan" title="Pan Mode"></i> -->
-        <!-- <i class="el-icon-s-home" mode="select" title="Select Mode"></i> -->
         <i
           class="el-icon-s-home"
           reset=""
+          title="自适应"
           title="Zoom To Fit"
         ></i>
-        <!-- <i class="fa fa-undo" undo="" title="Undo last action"></i> -->
-        <!-- <i class="fa fa-repeat" redo="" title="Redo last action"></i> -->
       </div>
       <div class="miniview jtk-miniview"></div>
     </div>
@@ -257,6 +253,12 @@ export default Vue.extend({
             refreshLayoutOnEdgeConnect: true,
             elementsDraggable: true
           })
+
+        // reset
+        jsPlumb.on(mainElement, 'tap', '[reset]', function () {
+          tookit.clearSelection()
+          renderer.zoomToFit()
+        })
       })
     }
   }
