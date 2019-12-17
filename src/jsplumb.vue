@@ -53,7 +53,9 @@ export default Vue.extend({
     }
   },
   mounted () {
-    this.createFlow(this.data)
+    jsPlumb.ready(() => {
+      this.createFlow(this.data)
+    })
   },
   methods: {
     createFlow (flowData) {
