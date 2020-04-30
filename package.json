@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^2.13.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsplumb": "^2.12.7",
     "vue": "^2.6.10",
     "vue-hot-reload-api": "^2.3.4"
